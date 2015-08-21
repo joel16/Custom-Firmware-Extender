@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/2/trunk/HostCore/extras/resources
+END
+fake.iso
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/2/trunk/HostCore/extras/resources/fake.iso
+END
+usb.res
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/2/trunk/HostCore/extras/resources/usb.res
+END
+off.res
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/2/trunk/HostCore/extras/resources/off.res
+END
+wifi.res
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/2/trunk/HostCore/extras/resources/wifi.res
+END

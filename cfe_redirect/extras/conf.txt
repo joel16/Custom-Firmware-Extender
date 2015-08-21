@@ -1,0 +1,48 @@
+#########################
+##  Quick Key Setting  ##
+#########################
+
+# Key combination to switch mode, here is a list of value you can use.
+#
+# SELECT	= 000001
+# STAR		= 000008
+# UP 		= 000010
+# RIGHT		= 000020
+# DOWN		= 000040
+# LEFT		= 000080
+# LTRIGGER	= 000100
+# RTRIGGER	= 000200
+# TRIANGLE	= 001000
+# CIRCLE	= 002000
+# CROSS		= 004000
+# SQUARE	= 008000
+# HOME		= 010000
+# NOTE		= 800000
+# SCREEN	= 400000
+# VOLUP		= 100000
+# VOLDOWN	= 200000
+#
+# You can combine them with "bit or", for example:
+# VOLUP + RTRIGGER = ( 0x100000 | 0x000200 ) = 0x100200
+# then you can use 100200 as a value.
+
+Quick Key		"800000"
+
+########################
+##  WifiHost Setting  ##
+########################
+
+# Target PC IP
+IP				"192.168.1.1"
+
+# Target PC listening port
+Port			"7513"
+
+# NetHostFs password
+Password		"12345678"
+
+# Number of your PSP connection entry
+Connection		"1"
+
+# Wifi transfer block size
+Block Size		"2048"
