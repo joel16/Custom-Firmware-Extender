@@ -1,8 +1,8 @@
 # Custom-Firmware-Extender
-Originally Developed by Cpasjuste. My modificaton is to allow it to work efficently on 6.XX Custom Firmwares
 
-Custom Firmware Extender (aka cfe) is a set of plugins that will add some extra options to your SONY PSP.
-With Custom Firmware Extender you should be able to :
+Custom Firmware Extender (aka cfe) is a set of plugins that will add some extra options to your SONY PSP. This plugin was originally developed by Cpasjuste. My modificaton is to allow it to work efficently on 6.XX Custom Firmwares. My modifications only include updated function offsets and NIDS for 6.XX custom firmwares. I will not be adding any new features to this program.
+
+#  Features:
 
 
 •	Change the speed of the PSP CPU/FSB while under the VSH (PSP Menu) or in-game (Umd/Iso/Homebrews) from the cfe menu or with a quick combo key.
