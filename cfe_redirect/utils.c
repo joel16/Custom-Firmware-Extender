@@ -542,17 +542,17 @@ void initUtils()
 {
 	setUmdFile = ( void * )findProc( "SystemControl", "SystemCtrlForKernel", 0xB64186D0 );
 	getUmdFile = ( void * )findProc( "SystemControl", "SystemCtrlForKernel", 0xAC56B90B );
-	setInitApitype = ( void * )findProc( "SystemControl", "SystemCtrlForKernel", 0x8d5be1f0 );
-	setInitFileName = ( void * )findProc( "SystemControl", "SystemCtrlForKernel", 0x128112c3 );
+	setInitApitype = ( void * )findProc( "SystemControl", "SystemCtrlForKernel", 0x8D5BE1F0 );
+	setInitFileName = ( void * )findProc( "SystemControl", "SystemCtrlForKernel", 0x128112C3 );
 	mountUmdFromFile = ( void * )findProc( "SystemControl", "SystemCtrlForKernel", 0x85b520c6 );
 	unmountUmd = ( void * )findProc( "SystemControl", "SystemCtrlForKernel", 0x512e0cd8 );
 	getCfwConfig = ( void * )findProc( "SystemControl", "SystemCtrlForKernel", 0x16c3b7ee );
 	
 	unsigned int nid[5];
 	getUtilsNids( nid );
-	sceKernelExitVSH = ( void * )findProc( "sceLoadExec", "LoadExecForKernel", nid[0] );
-	sceKernelUnregisterExitCallback = ( void * )findProc( "sceLoadExec", "LoadExecForKernel", nid[1] );
-	sceKernelCheckExitCallback = ( void * )findProc( "sceLoadExec", "LoadExecForKernel", nid[2] );
-	sceKernelLoadModuleForLoadExecVSHMs2 = ( void * )findProc( "sceModuleManager", "ModuleMgrForKernel", nid[3] );
-	sceKernelLoadModuleForLoadExecVSHDisc = ( void * )findProc( "sceModuleManager", "ModuleMgrForKernel", nid[4] );
+	sceKernelExitVSH = ( void * )findProc( "sceLoadExec", "LoadExecForKernel", 0x5AA1A6D2 );
+	sceKernelUnregisterExitCallback = ( void * )findProc( "sceLoadExec", "LoadExecForKernel", 0x24114598 );
+	sceKernelCheckExitCallback = ( void * )findProc( "sceLoadExec", "LoadExecForKernel", 0xB57D0DEC );
+	sceKernelLoadModuleForLoadExecVSHMs2 = ( void * )findProc( "sceModuleManager", "ModuleMgrForKernel", 0x7BD53193 );
+	sceKernelLoadModuleForLoadExecVSHDisc = ( void * )findProc( "sceModuleManager", "ModuleMgrForKernel", 0xCE0A74A5 );
 }
