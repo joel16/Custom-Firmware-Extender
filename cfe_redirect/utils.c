@@ -550,7 +550,7 @@ void initUtils()
 	
 	unsigned int nid[5];
 	getUtilsNids( nid );
-	sceKernelExitVSH = ( void * )findProc( "sceLoadExec", "LoadExecForKernel", 0x5AA1A6D2 );
+	sceKernelExitVSH = ( void * )findProc( "sceLoadExec", "LoadExecForKernel", 0x08F7166C );
 	sceKernelUnregisterExitCallback = ( void * )findProc( "sceLoadExec", "LoadExecForKernel", 0x24114598 );
 	sceKernelCheckExitCallback = ( void * )findProc( "sceLoadExec", "LoadExecForKernel", 0xB57D0DEC );
 	sceKernelLoadModuleForLoadExecVSHMs2 = ( void * )findProc( "sceModuleManager", "ModuleMgrForKernel", 0x7BD53193 );
