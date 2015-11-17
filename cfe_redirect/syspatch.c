@@ -171,8 +171,8 @@ void getDisplayNids( unsigned int * nid )
 	}
 	else if ( fw_version == FW_620 || fw_version == FW_635 || fw_version == FW_639 || fw_version == FW_660 || fw_version == FW_661 )
 	{
-		nid[0] = 0x1F803938;
-		nid[1] = 0x3A622550;
+		nid[0] = 0xEEDA2E54; //sceDisplayGetFrameBuf
+		nid[1] = 0x36CDFADE; //sceDisplayWaitVblank
 	}
 }
 
