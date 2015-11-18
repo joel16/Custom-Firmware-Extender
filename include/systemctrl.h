@@ -69,6 +69,7 @@ int sctrlKernelLoadExecVSHMs1(const char *file, struct SceKernelLoadExecVSHParam
  * @returns < 0 on some errors. 
 */
 int sctrlKernelLoadExecVSHMs2(const char *file, struct SceKernelLoadExecVSHParam *param);
+int sctrlKernelLoadExecVSHEf2(const char *file, struct SceKernelLoadExecVSHParam *param);
 
 /**
  * Executes a new executable from a memory stick.
@@ -174,6 +175,13 @@ int	sctrlHENIsDevhook();
 int sctrlHENGetVersion();
 
 /**
+ * Gets the HEN minor version
+ *
+ * @returns - The HEN minor version
+ */
+int sctrlHENGetMinorVersion();
+
+/**
  * Finds a driver
  *
  * @param drvname - The name of the driver (without ":" or numbers)
@@ -186,16 +194,14 @@ PspIoDrv *sctrlHENFindDriver(char *drvname);
 /** 
  * Finds a function.
  *
- * @param szMod - The module where to search the function
- * @param szLib - The library name
- * @param nid - The nid of the function
+ * @param modname - The module where to search the function
+ * @param libname - The library name
+ * @nid - The nid of the function
  *
  * @returns - The function address or 0 if not found
  *
 */
-u32 sctrlHENFindFunction(const char* szMod, const char* szLib, u32 nid);
-
-#define FindProc sctrlHENFindFunction
+u32 sctrlHENFindFunction(char *modname, char *libname, u32 nid);
 
 typedef int (* STMOD_HANDLER)(SceModule2 *);
 
@@ -240,17 +246,71 @@ typedef int (* STMOD_HANDLER)(SceModule2 *);
 */
 STMOD_HANDLER sctrlHENSetStartModuleHandler(STMOD_HANDLER handler);
 
+typedef int (* KDEC_HANDLER)(u32 *buf, int size, int *retSize, int m);
+typedef int (* MDEC_HANDLER)(u32 *tag, u8 *keys, u32 code, u32 *buf, int size, int *retSize, int m, void *unk0, int unk1, int unk2, int unk3, int unk4);
+
+/**
+ * Sets the speed (only for kernel usage)
+ *
+ * @param cpu - The cpu speed
+ * @param bus - The bus speed
+*/
+void sctrlHENSetSpeed(int cpu, int bus);
+
 /**
  * Sets the partition 2 and 8  memory for next loadexec.
  *
  * @param p2 - The size in MB for the user partition. Must be > 0
  * @param p8 - The size in MB for partition 8. Can be 0.
  *
- * @returns 0 on success, < 0 on error. 
+ * @returns 0 on success, < 0 on error.
  * This function is only available in the slim. The function will fail
  * if p2+p8 > 52 or p2 == 0
 */
 int sctrlHENSetMemory(u32 p2, u32 p8);
+
+void sctrlHENPatchSyscall(void *addr, void *newaddr);
+
+int sctrlKernelQuerySystemCall(void *func_addr);
+
+int sctrlKernelBootFrom(void);
+
+/**
+ * Patch module by offset
+ *
+ * @param modname - module name
+ * @param inst  - instruction
+ * @param offset - module patch offset
+ *
+ * @return < 0 on error
+ */
+int sctrlPatchModule(char *modname, u32 inst, u32 offset);
+
+/**
+ * Get module text address
+ *
+ * @param modname - module name
+ * 
+ * @return text address, or 0 if not found
+ */
+u32 sctrlModuleTextAddr(char *modname);
+
+/**
+ * Get sceInit module text address
+ *
+ * @note Only useful before sceInit exits
+ *
+ * @return text address, or 0 if not found
+ */
+u32 sctrlGetInitTextAddr(void);
+
+/**
+ * Set custom start module handler
+ * It can be used to replace a system module
+ *
+ * @note: func returns -1 to ignore the module and load the original module. Or new modid if replace is done.
+ */
+void sctrlSetCustomStartModule(int (*func)(int modid, SceSize argsize, void *argp, int *modstatus, SceKernelSMOption *opt));
 
 /**
  * Loads a module on next reboot. Only kernel mode.
@@ -276,14 +336,31 @@ int sctrlHENSetMemory(u32 p2, u32 p8);
 
 void sctrlHENLoadModuleOnReboot(char *module_after, void *buf, int size, int flags);
 
-/** Changes a syscall to another function 
+/**
+ * Enable/disable NID Resolver on particular library
  *
- * @param addr - the address of the original function
- * @param newaddr - the address of the new function
-*/
-void sctrlHENPatchSyscall(u32 addr, void *newaddr);
+ * @param libname the name of the library to be enabled/disabled
+ * @param enabled 0 - disabled, != 0 - enabled
+ *
+ * @Example:
+ * sctrlKernelSetNidResolver("sceImpose_driver", 0); // disable sceImpose_driver resolving
+ *
+ * @return previous value if set, < 0 on error
+ */
+int sctrlKernelSetNidResolver(char *libname, u32 enabled);
+
+/**
+ * Get a random u32 key from PSP Kirk PRNG
+ */
+u32 sctrlKernelRand(void);
+
+/**
+ * Get the real unspoofed Ethernet (MAC) Address of the systems WLAN chip
+ *
+ * @param mac Out-Buffer (6B) for real MAC Address
+ *
+ * @return 0 on success, < 0 on error
+ */
+int sctrlGetRealEthernetAddress(uint8_t * mac);
 
 #endif
-
-
-

@@ -12,50 +12,86 @@ enum
 	FAKE_REGION_JAPAN = 1,
 	FAKE_REGION_AMERICA = 2,
 	FAKE_REGION_EUROPE = 3,
-	FAKE_REGION_KOREA = 4, /* do not use, may cause brick on restore default settings */
-	FAKE_REGION_UNK = 5, 
+	FAKE_REGION_KOREA = 4, 
+	FAKE_REGION_UNK = 5,
 	FAKE_REGION_UNK2 = 6,
 	FAKE_REGION_AUSTRALIA = 7,
-	FAKE_REGION_HONGKONG = 8, /* do not use, may cause brick on restore default settings */
-	FAKE_REGION_TAIWAN = 9, /* do not use, may cause brick on restore default settings */
+	FAKE_REGION_HONGKONG = 8,
+	FAKE_REGION_TAIWAN = 9,
 	FAKE_REGION_RUSSIA = 10,
-	FAKE_REGION_CHINA = 11, /* do not use, may cause brick on restore default settings */
+	FAKE_REGION_CHINA = 11,
+	FAKE_REGION_DEBUG_TYPE_I = 12,
+	FAKE_REGION_DEBUG_TYPE_II = 13,
 };
 
-
+// No MODE_OE_LEGACY any more
 enum SEUmdModes
 {
 	MODE_UMD = 0,
-	MODE_OE_LEGACY = 1,
-	MODE_MARCH33 = 2,
-	MODE_NP9660 = 3,
+	MODE_MARCH33 = 1,
+	MODE_NP9660 = 2,
+	MODE_INFERNO = 3,
+	MODE_VSHUMD = 4,
+	MODE_UPDATERUMD = 5,
 };
 
-typedef struct
+enum MsSpeedFlag
 {
-	int magic; /* 0x47434553 */
-	int hidecorrupt;
-	int	skiplogo;
-	int umdactivatedplaincheck;
-	int gamekernel150;
-	int executebootbin;
-	int startupprog;
-	int umdmode;
-	int useisofsonumdinserted;
-	int	vshcpuspeed; 
-	int	vshbusspeed; 
-	int	umdisocpuspeed; 
-	int	umdisobusspeed; 
-	int fakeregion;
-	int freeumdregion;
-	int	hardresetHB; 
-	int usbdevice;
-	int novshmenu;
-	int usbcharge;
-	int notusedaxupd;
-	int reserved[2];
-} SEConfig;
+	MSSPEED_NONE     = 0,
+	MSSPEED_POP      = 1,
+	MSSPEED_GAME     = 2,
+	MSSPEED_VSH      = 3,
+	MSSPEED_POP_GAME = 4,
+	MSSPEED_GAME_VSH = 5,
+	MSSPEED_VSH_POP  = 6,
+	MSSPEED_ALWAYS   = 7,
+};
 
+enum InfernoCachePolicy
+{
+	CACHE_POLICY_LRU = 0,
+	CACHE_POLICY_RR = 1,
+};
+
+typedef struct _SEConfig
+{
+	int magic;
+	s16 umdmode;
+	s16 vshcpuspeed;
+	s16 vshbusspeed;
+	s16 umdisocpuspeed;
+	s16 umdisobusspeed;
+	s16 fakeregion;
+	s16 usbdevice;
+	s16 usbcharge;
+	s16 machidden;
+	s16 skipgameboot;
+	s16 hidepic;
+	s16 plugvsh; 
+	s16 pluggame;
+	s16 plugpop;
+	s16 flashprot;
+	s16 skiplogo;
+	s16 useversion;
+	s16 useownupdate;
+	s16 usenodrm;
+	s16 hibblock;
+	s16 noanalog;
+	s16 oldplugin;
+	s16 htmlviewer_custom_save_location;
+	s16 hide_cfw_dirs;
+	s16 chn_iso;
+	s16 msspeed;
+	s16 slimcolor;
+	s16 iso_cache;
+	s16 iso_cache_total_size; // in MB
+	s16 iso_cache_num;
+	s16 iso_cache_policy;
+	s16 usbversion;
+	s16 language; /* -1 as autodetect */
+	s16 retail_high_memory;
+	s16 macspoofer;
+} SEConfig;
 
 /**
  * Gets the SE/OE version
@@ -156,8 +192,14 @@ void sctrlSESetDiscOut(int out);
  * Sets the disctype.
  *
  * @param type - the disctype (0x10=game, 0x20=video, 0x40=audio)
+ * @note: Currently only inferno available, needs reset to take effect
 */
 void sctrlSESetDiscType(int type);
+
+/**
+ * Get the disctype.
+*/
+int sctrlSEGetDiscType(void);
 
 /**
  * Sets the current umd file (kernel only)
@@ -177,10 +219,15 @@ char *sctrlSEGetUmdFile();
 void sctrlSESetUmdFile(char *file);
 
 /** 
- * Sets the boot config file for next reboot (kernel only)
+ * Sets the boot config file for next reboot
  *
- * @param index - The index identifying the file (0 -> normal bootconf, 1 -> march33 driver bootconf, 2 -> np9660 bootcnf)
+ * @param index - The index identifying the file (0 -> normal bootconf, 1 -> march33 driver bootconf, 2 -> np9660 bootcnf, 3 -> inferno bootconf), 4 -> inferno vsh mount
 */
 void sctrlSESetBootConfFileIndex(int index);
+
+/**
+ * Get the boot config index
+ */
+u32 sctrlSEGetBootConfFileIndex(void);
 
 #endif
