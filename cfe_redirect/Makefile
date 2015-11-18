@@ -23,7 +23,7 @@
 TARGET			= cfe_redirect
 OBJS			= main.o utils.o syspatch.o ctrl.o conf.o mem.o umd.o usbhost.o wifihost.o tinyui.o log.o
 
-PSP_FW_VERSION	= 500
+PSP_FW_VERSION	= 660
 BUILD_PRX		= 1
 USE_KERNEL_LIBC	= 1
 USE_KERNEL_LIBS = 1

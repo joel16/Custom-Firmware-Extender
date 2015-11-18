@@ -1,7 +1,7 @@
 TARGET = usbhostfs
 OBJS = main.o host_driver.o kmode.o exports.o
 
-PSP_FW_VERSION	= 500
+PSP_FW_VERSION	= 660
 # Use the kernel's small inbuilt libc
 USE_KERNEL_LIBC = 1
 # Use only kernel libraries
