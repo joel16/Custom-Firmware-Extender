@@ -540,13 +540,13 @@ int loadStartPBP( const char * file )
 
 void initUtils()
 {
-	setUmdFile = ( void * )findProc( "SystemControl", "SystemCtrlForKernel", 0xB64186D0 );
-	getUmdFile = ( void * )findProc( "SystemControl", "SystemCtrlForKernel", 0xAC56B90B );
+	setUmdFile = ( void * )findProc( "SystemControl", "SystemCtrlForKernel", 0x5A35C948 );
+	getUmdFile = ( void * )findProc( "SystemControl", "SystemCtrlForKernel", 0xBA21998E );
 	setInitApitype = ( void * )findProc( "SystemControl", "SystemCtrlForKernel", 0x8D5BE1F0 );
 	setInitFileName = ( void * )findProc( "SystemControl", "SystemCtrlForKernel", 0x128112C3 );
 	mountUmdFromFile = ( void * )findProc( "SystemControl", "SystemCtrlForKernel", 0x85b520c6 );
 	unmountUmd = ( void * )findProc( "SystemControl", "SystemCtrlForKernel", 0x512e0cd8 );
-	getCfwConfig = ( void * )findProc( "SystemControl", "SystemCtrlForKernel", 0x16c3b7ee );
+	getCfwConfig = ( void * )findProc( "SystemControl", "SystemCtrlForKernel", 0x16C3B7EE );
 	
 	unsigned int nid[5];
 	getUtilsNids( nid );
